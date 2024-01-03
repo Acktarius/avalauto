@@ -16,14 +16,14 @@ an Avalon miner with known username, password and IP address
 ## Install
 ### Dependencies and application requirements
 `sudo apt update`  
- * argos
+ * argos  
 need to be able to toggle the **argos** extention :  
 `sudo apt-get -y install gnome-shell-extension-prefs`  
- * emojis
+ * emojis  
 `sudo apt install gnome-characters`
- * zenity
+ * zenity  
 `sudo apt install -y zenity`
- * gpg
+ * gpg  
 `sudo apt-get -y install gpg`
 
 ### Argos extension :
@@ -34,11 +34,11 @@ copy the argos folder in your extensions folder
 logout , log back in, open Extension and toggle Argos  
 
 ## Download this repository
-`git clone `
+`https://github.com/Acktarius/avalauto.git`  
 mv the downloaded directory to /opt  
-`mv /avalauto /opt/`      
+`mv /avalauto /opt/`  
 
-## Finish install  
+## Install  
 change directory  
 `cd /opt/avalauto`  
  * copy the extension    
