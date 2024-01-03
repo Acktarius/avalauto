@@ -42,7 +42,7 @@ unset credentialsZ
 if ([[ -n $1 ]] && [[ $1 = "--clearlog" ]]); then
 if [[ -f hashlog.txt ]]; then
 	rm -f hashlog.txt
-	echo "log as been deleted"
+	echo "log as been deleted"; sleep 2; exit
 else
 echo "no log" 
 fi
