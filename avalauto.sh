@@ -7,6 +7,11 @@
 #variables
 bold=$(tput bold)
 normal=$(tput sgr0)
+if [[ -f .data ]]; then
+echo -e "missing target IP\nplease run ${bold}./second.sh${normal} and come back"
+sleep 2
+exit
+fi
 ip=$(cat .data)
 #Declaratons
 url="http://$ip/login.cgi"
