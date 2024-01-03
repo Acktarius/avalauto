@@ -34,4 +34,4 @@ echo "Hash <span color='#1fc600'>${hash}</span> TH/s at <span color='#1fc600'>${
 echo "Status <span color='$(color "0" $status)'>$status</span> Ratio: <span color='#1fc600'>${ratio}</span> W/H/s"
 echo "Temp max <span color='$(color $tmax 72)'>$tmax</span>"
 echo ":hammer_and_pick:  Run Script | bash=/opt/avalauto/launcher.sh terminal=false"
-echo "empty :wastebasket: log and :hammer_and_pick: Run | bash=/opt/avalauto/trashlog.sh terminal=false"
+echo "empty :wastebasket: log | bash=/opt/avalauto/trashlog.sh terminal=false"
