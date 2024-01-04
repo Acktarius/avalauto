@@ -53,17 +53,18 @@ make sure the scripts files are executable
 `chmod 755 *.sh`
 
 ## Setup
-1. Activate argos in extension (new icon on your launch pad)(just need to been for first use)
-2. within Terminal (Ctrl + Alt + T)
-   `cd /opt/avalauto`
-   `./first.sh`
-   (this is to store your credentials in an encrypted file, remember your new single use passphrase, you might need it sometimes)
-3. still in terminal
-   `./second.sh`
-   (this is to give the ip address of the miner on your local network)  
+1. Activate argos in extension (new icon on your launch pad)(just need to been for first use)  
+2. within Terminal (Ctrl + Alt + T)  
+   `cd /opt/avalauto`  
+   `./first.sh`  
+   (this is to store your credentials in an encrypted file, remember your new single use passphrase, you might need it sometimes)  
+3. still in terminal  
+   `./second.sh`  
+   (this is to give the ip address of the miner on your local network)   
 ## Run  
-to test, run:
-`./avalauto.sh`  
+to test, run:  
+`./avalauto.sh`   
+it runs for 5minutes, and then runs 5minutes for every hour, the date in the extension turns orange if it did not receive input for more than one hour.   
+you can click on **Run Script** if you wnat to refresh.  
+*(now you may have to log out and come back to see the extension appear in your top bar.)*
 
-now you may have to log out and come back to see the extension appear in your top bar.
-8. 
