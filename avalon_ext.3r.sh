@@ -9,7 +9,7 @@ declare -a lastLine
 declare -a poolInfo
 read -a lastLine <<< $(echo "$(tail -n 1 /opt/avalauto/hashlog.txt)")
 lastDay=${lastLine[0]}
-lastClock=${lastLine[2]}
+lastClock=${lastLine[1]}
 hash=${lastLine[3]}
 watt=${lastLine[6]}
 ratio=${lastLine[8]}
