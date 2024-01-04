@@ -47,9 +47,9 @@ change directory
 `cp miner.svg ~/.icons/miner`
  * add a cronjob
 `crontab -e`
-   * add the line and save (CTRL + S and CTRL + X)
+   * add the line and save (CTRL + S and CTRL + X)   
     `0 * * * * /opt/avalauto/launcher.sh`      
-make sure the scripts files are executable 
+ * make sure the scripts files are executable  
 `chmod 755 *.sh`
 
 ## Setup
