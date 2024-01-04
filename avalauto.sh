@@ -7,7 +7,7 @@
 #variables
 bold=$(tput bold)
 normal=$(tput sgr0)
-if [[ -f .data ]]; then
+if [[ ! -f .data ]]; then
 echo -e "missing target IP\nplease run ${bold}./second.sh${normal} and come back"
 sleep 2
 exit
@@ -41,8 +41,9 @@ unset credentialsZ
 #log
 if ([[ -n $1 ]] && [[ $1 = "--clearlog" ]]); then
 if [[ -f hashlog.txt ]]; then
-	rm -f hashlog.txt
-	echo "log as been deleted"; sleep 2; exit
+	echo "CURRENTDATE hashrate: ? TH/s at ? Watt, ? W/TH/s, Status ? Tavg ? TIMESTAMP" > hashlog.txt
+	echo "log as been cleared"; sleep 2; 
+
 else
 echo "no log" 
 fi
@@ -82,15 +83,15 @@ powerbrut=$(curl -s -X GET --cookie-jar cookies.txt \
 	$url3 \
 	)
 j=$(strindex "$powerbrut" 'PS[')
-k=$(strindex "$powerbrut" 'TMax[')
+k=$(strindex "$powerbrut" 'TAvg[')
 power="$(echo "${powerbrut:(($j+3)):20}" | cut -d " " -f 5)"
-tmax="${powerbrut:(($k+5)):2}"
+tavg="${powerbrut:(($k+5)):2}"
 unset j k
 
 
 CURRENTDATE=$(date +"%Y-%m-%d %T")
 TIMESTAMP=$(date +%s)
-echo "$CURRENTDATE hashrate: $hash TH/s at $power Watt, $(( $power / $hash )) W/TH/s, Status $status Tmax $tmax $TIMESTAMP" >> hashlog.txt
+echo "$CURRENTDATE hashrate: $hash TH/s at $power Watt, $(( $power / $hash )) W/TH/s, Status $status Tavg $tavg $TIMESTAMP" >> hashlog.txt
 
 sleep 30
 
@@ -103,7 +104,6 @@ curl -X GET --cookie-jar cookies.txt \
 	--digest \
 	$urlq \
 	2> /dev/null
-
 
 
 
