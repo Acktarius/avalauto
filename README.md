@@ -53,7 +53,7 @@ make sure the scripts files are executable
 `chmod 755 *.sh`
 
 ## Setup
-1. Activate argos in extension (just need to been for first use)
+1. Activate argos in extension (new icon on your launch pad)(just need to been for first use)
 2. within Terminal (Ctrl + Alt + T)
    `cd /opt/avalauto`
    `./first.sh`
