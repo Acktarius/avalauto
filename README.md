@@ -1,5 +1,5 @@
 # avalauto
-Go fetch info in your Avalon Bitcoin Miner *and probably compatible with other miners since all the manufacturer are pretty much using the same interface"   
+Go fetch info in your Avalon Bitcoin Miner *and probably compatible with other miners since all the manufacturer are pretty much using the same interface*     
 This top bar extensions useful to monitor Avalon Bitcoin miner status 
 in just one click !
 
