@@ -36,19 +36,34 @@ logout , log back in, open Extension and toggle Argos
 ## Download this repository
 `https://github.com/Acktarius/avalauto.git`  
 mv the downloaded directory to /opt  
-`mv /avalauto /opt/`  
+`sudo mv /avalauto /opt/`   
 
 ## Install  
 change directory  
 `cd /opt/avalauto`  
  * copy the extension    
-`cp avalon_est.3r+.sh ~/.config/argos/avalon_est.3r+.sh`  
+`cp avalon_est.3r.sh ~/.config/argos/avalon_est.3r+.sh`  
  * copy the icon
 `cp miner.svg ~/.icons/miner`
  * add a cronjob
 `crontab -e`
   * add the line
-    `0 * * * * /opt/avalauto/launcher.sh`     
-make sure the scripts file  
-`chmod 755 gpu.2r.5m+.sh`  
-`chmod 755 a`
+    `0 * * * * /opt/avalauto/launcher.sh`      
+make sure the scripts file are executable 
+`chmod 755 *.sh`
+
+## Setup
+1. Activate argos in extension (just need to been for first use)
+2. within Terminal (Ctrl + Alt + T)
+   `cd /opt/avalauto`
+   `./first.sh`
+   (this is to store your credentials in an encrypted file, remember your new single use passphrase, you might need it sometimes)
+3. still in terminal
+   `./second.sh`
+   (this is to give the ip address of the miner on your local network)  
+## Run  
+to test, run:
+`./avalauto.sh`  
+
+now you may have to log out and come back to see the extension appear in your top bar.
+8. 
