@@ -7,7 +7,7 @@ Huge thanks to [Bitbar](https://github.com/matryer/bitbar) and [@p-e-w](https://
 
 ## For who ?
 Ubuntu users, running an Avalon miner on the same local network.  
-(probably works on Debian)  
+*(probably works on other Debian, not tested)*  
 
 ## Prerequisite
 an Avalon miner with known username, password and IP address
