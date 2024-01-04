@@ -43,7 +43,6 @@ if ([[ -n $1 ]] && [[ $1 = "--clearlog" ]]); then
 if [[ -f hashlog.txt ]]; then
 	echo "CURRENTDATE hashrate: ? TH/s at ? Watt, ? W/TH/s, Status ? Tavg ? TIMESTAMP" > hashlog.txt
 	echo "log as been cleared"; sleep 2; 
-
 else
 echo "no log" 
 fi
@@ -104,6 +103,3 @@ curl -X GET --cookie-jar cookies.txt \
 	--digest \
 	$urlq \
 	2> /dev/null
-
-
-
