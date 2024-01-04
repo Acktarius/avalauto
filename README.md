@@ -45,10 +45,10 @@ change directory
 `cp avalon_ext.3r.sh ~/.config/argos/avalon_ext.3r+.sh`  
  * copy the icon
 `cp miner.svg ~/.icons/miner`
- * add a cronjob
+ * add a cronjob to run every 30minutes
 `crontab -e`
    * add the line and save (CTRL + S and CTRL + X)   
-    `0 * * * * /opt/avalauto/launcher.sh`      
+    `0,30 * * * * /opt/avalauto/launcher.sh`      
  * make sure the scripts files are executable  
 `chmod 755 *.sh`
 
@@ -64,7 +64,7 @@ change directory
 ## Run  
 to test, run:  
 `./avalauto.sh`   
-it runs for 5minutes, and then runs 5minutes for every hour, the date in the extension turns orange if it did not receive input for more than one hour.   
+it runs for 2minutes, and then runs 2minutes every 30 minutes, the date in the extension turns orange if it did not receive input for more than 1/2hour.   
 you can click on **Run Script** if you wnat to refresh. (no more need of the terminal).    
 *(now you may have to log out and come back to see the extension appear in your top bar.)*
 
