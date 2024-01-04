@@ -33,14 +33,15 @@ copy the argos folder in your extensions folder
 logout , log back in, open Extension and toggle Argos  
 
 ## Download this repository
-`https://github.com/Acktarius/avalauto.git`  
+within terminal ~$  (Ctrl + Alt + T)
+`git clone https://github.com/Acktarius/avalauto.git`  
 mv the downloaded directory to /opt  
 `sudo mv /avalauto /opt/`   
 
 ## Install  
 change directory  
 `cd /opt/avalauto`  
- * copy the extension    
+ * copy the extension (don't forget to add the **+**)  
 `cp avalon_est.3r.sh ~/.config/argos/avalon_est.3r+.sh`  
  * copy the icon
 `cp miner.svg ~/.icons/miner`
