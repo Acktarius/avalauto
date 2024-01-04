@@ -1,7 +1,6 @@
 # avalauto
 Go fetch info in your Avalon Bitcoin Miner *and probably compatible with other miners since all the manufacturers are pretty much using the same interface*     
-This top bar extensions useful to monitor Avalon Bitcoin miner status 
-in just one click !
+Thanks to this top bar extensions you'll monitor your Avalon Bitcoin miner status in just one click !  
 
 ## Acknoledgment
 Huge thanks to [Bitbar](https://github.com/matryer/bitbar) and [@p-e-w](https://github.com/p-e-w/argos) for creating the argos repositories  
