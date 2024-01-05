@@ -9,7 +9,7 @@ this script is delivered “as is” and I deny any and all liability for any da
 Huge thanks to [Bitbar](https://github.com/matryer/bitbar) and [@p-e-w](https://github.com/p-e-w/argos) for creating the argos repositories  
 
 ## For who ?
-Ubuntu users, running an Avalon miner on the same local network.  
+**Ubuntu** users, running an **Avalon** miner on the same local network.  
 *(probably works on other Debian, not tested)*  
 
 ## Prerequisite
