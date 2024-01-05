@@ -16,24 +16,21 @@ exit
 else	
 value=$(zenity --entry \
 --title="Enter IP of the Miner" \
---text="IP Adress" \
+--text="IP Address" \
 --entry-text "xxx.yyy.z.w"
 )
 
 case $? in
 	0)
 	if [[ ! $value =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-	echo "IP format incorrect"; sleep 2
+	echo "IP format incorrect"; sleep 1
 	else
 	echo "IP format seems correct"
 	echo "$value" > .data
-	exit
 	fi
 	;;
 	1)
 	echo "nothing done bye!" 
-	sleep 1
-	exit
 	;;
 	*)
 	echo "something went wrong"
@@ -41,7 +38,6 @@ case $? in
 esac
 
 fi
-
+sleep 1
 exit
-
 
