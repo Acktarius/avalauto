@@ -4,6 +4,8 @@
 ##################################################################
 #    main
 ##################################################################
+#runner
+echo "$$" > .pid
 #variables
 declare -A av=(["hash"]="?" ["status"]="?" ["power"]="?" ["tavg"]="?" ["pool"]="?" ["worker"]="?" ["accepted"]="?" ["rejected"]="?" ["rejectedp"]="?")
 ##index
@@ -20,6 +22,7 @@ ip=$(cat .data)
 url="http://$ip/login.cgi"
 url2="http://$ip/get_home.cgi"
 url3="http://$ip/updatecglog.cgi"
+url4="http://$ip/get_minerinfo.cgi"
 urlq="http://$ip/logout.cgi"	
 
 #function
@@ -28,15 +31,26 @@ strindex() {
   [[ "$x" = "$1" ]] && echo -1 || echo "${#x}"
 }
 
-
-curlit () {
-local credentialsZ=$(echo "$(gpg -d credentialsgpg)")
+curlAnyPost () {
 curl -s -X POST --cookie-jar cookies.txt \
 	-b cookies.txt \
 	--config curlConfigFile.txt \
 	--digest \
-	--data $credentialsZ \
-	$url > /dev/null
+	--data "$1" \
+	$2
+}
+curlAnyGet () {
+curl -s -X GET --cookie-jar cookies.txt \
+	-b cookies.txt \
+	--config curlConfigFile.txt \
+	--digest \
+	$1
+}
+
+
+curlit () {
+local credentialsZ=$(echo "$(gpg -d credentialsgpg)")
+curlAnyPost $credentialsZ $url > /dev/null
 unset credentialsZ
 }
 
@@ -66,12 +80,7 @@ sleep 2
 for ((t=0; t <4; t++)); do
 
 #Get Hash
-hashbrut=$(curl -s -X GET --cookie-jar cookies.txt \
-	-b cookies.txt \
-	--config curlConfigFile.txt \
-	--digest \
-	$url2 \
-	| grep '"av":')	
+hashbrut=$(echo "$(curlAnyGet $url2)" | grep '"av":')
 i[0]=$(strindex "$hashbrut" '"av":')
 i[1]=$(strindex "$hashbrut" '"sys_status":')
 i[2]=$(strindex "$hashbrut" '"url":')
@@ -89,24 +98,28 @@ av["rejectedp"]=$(echo "${hashbrut:((${i[6]}+23)):10}" | cut -d '"' -f 1)
 unset i l
 
 #Get Power
-powerbrut=$(curl -s -X GET --cookie-jar cookies.txt \
-	-b cookies.txt \
-	--config curlConfigFile.txt \
-	--digest \
-	$url3 \
-	)
+powerbrut=$(curlAnyGet $url3) 
+echo "$powerbrut"  
 i[7]=$(strindex "$powerbrut" 'PS[')
 i[8]=$(strindex "$powerbrut" 'TAvg[')
+i[9]=$(strindex "$powerbrut" 'WORKMODE[')
 av["power"]="$(echo "${powerbrut:((${i[7]}+3)):20}" | cut -d " " -f 5)"
 av["tavg"]=$(echo "${powerbrut:((${i[8]}+5)):5}" | cut -d ']' -f 1)
+av["mode"]="${powerbrut:((${i[9]}+9)):1}"
 
-
+if [[ ${av["mode"]} -eq 0 ]]; then
+av["mode"]="Normal"
+elif [[ ${av["mode"]} -eq 1 ]]; then
+av["mode"]="Performance"
+else
+av["mode"]="?"
+fi
 
 CURRENTDATE=$(date +"%Y-%m-%d %T")
 TIMESTAMP=$(date +%s)
 echo "$CURRENTDATE hashrate: ${av["hash"]} TH/s at ${av["power"]} Watt, $(( ${av["power"]} / ${av["hash"]} )) W/TH/s, \
 	Status ${av["status"]} Tavg ${av["tavg"]} $TIMESTAMP \
-${av["pool"]} ${av["worker"]} ${av["accepted"]} ${av["rejected"]} ${av["rejectedp"]}" \
+${av["pool"]} ${av["worker"]} ${av["accepted"]} ${av["rejected"]} ${av["rejectedp"]}" ${av["mode"]}\
 >> hashlog.txt
 
 sleep 30
@@ -114,12 +127,10 @@ sleep 30
 done
 
 #logout
-curl -X GET --cookie-jar cookies.txt \
-	-b cookies.txt \
-	--config curlConfigFile.txt \
-	--digest \
-	$urlq \
-	2> /dev/null
+$(curlAnyGet $urlq) 2> /dev/null
+
 
 unset i av
+rm -f .pid
 
+exit
