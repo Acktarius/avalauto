@@ -44,8 +44,8 @@ mv the downloaded directory to /opt
 ## Install  
 change directory  
 `cd /opt/avalauto`  
- * copy the extension (don't forget to add the **+**)  
-`cp avalon_ext.3r.sh ~/.config/argos/avalon_ext.3r+.sh`  
+ * copy the extension script  
+`cp avalon_ext.3r+.sh ~/.config/argos/avalon_ext.3r+.sh`  
  * copy the icon
 `cp miner.svg ~/.icons/miner`
  * add a cronjob to run every 30minutes
