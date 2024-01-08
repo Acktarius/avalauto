@@ -32,6 +32,13 @@ echo "Run script <span color='#1fc600'><b><u>second.sh</u></b></span> | bash=/op
 exit
 fi
 #get last line
+if [[ ! -f /opt/avalauto/hashlog.txt ]]; then
+echo "Error :exclamation: | iconName=miner"
+echo "---"
+echo "no hashlog yet"
+echo ":hammer_and_pick:  <span color='#1fc600'><b><u>Run Script</u></b></span> | bash=/opt/avalauto/sc/launcher.sh terminal=false"
+exit
+fi
 read -a lastLine <<< $(echo "$(tail -n 1 /opt/avalauto/hashlog.txt)")
 lastDay=${lastLine[0]}
 lastClock=${lastLine[1]}
@@ -78,7 +85,7 @@ echo "--Swap pools | bash=/opt/avalauto/sc/miner_opsS.sh terminal=false"
 echo "--Change Mode &#128260; | bash=/opt/avalauto/sc/miner_opsM.sh terminal=false"
 echo "--:exclamation: Reboot Miner | bash=/opt/avalauto/sc/miner_opsR.sh terminal=false"
 echo "---"
-echo ":hammer_and_pick:  Run Script | bash=/opt/avalauto/launcher.sh terminal=false"
+echo ":hammer_and_pick:  Run Script | bash=/opt/avalauto/sc/launcher.sh terminal=false"
 echo "empty :wastebasket: log and :hammer_and_pick: Run | bash=/opt/avalauto/sc/trashlog.sh terminal=false"
 
 unset lastLine poolInfo
