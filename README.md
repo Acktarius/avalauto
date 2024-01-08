@@ -51,7 +51,7 @@ change directory
  * add a cronjob to run every 30minutes
 `crontab -e`
    * add the line and save (CTRL + S and CTRL + X)   
-    `0,30 * * * * /opt/avalauto/launcher.sh`      
+    `0,30 * * * * /opt/avalauto/sc/launcher.sh`      
  * make sure the scripts files are executable  
 `chmod 755 *.sh`
 
