@@ -17,7 +17,7 @@ ${normal}and come back visit this script"
 sleep 2
 exit
 else	
-value=$(zenity --username --password --timeout=12)
+value=$(zenity --username --password --timeout=25)
 case $? in
 	0)
 	u=$(echo $value | cut -d "|" -f 1)
