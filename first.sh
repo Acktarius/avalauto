@@ -7,26 +7,32 @@
 #Declaratons
 bold=$(tput bold)
 normal=$(tput sgr0)
+#Working directory
+wdir="/opt/avalauto"
+cd $wdir
 #main
 if [[ -f credentialsgpg ]]; then
-echo -e "credentials encrypted file already exist \ndelete it with ${bold}'sudo rm -f credentialsgpg' \n \
+echo -e "credentials encrypted file already exist \ndelete it with ${bold}'sudo rm -f credentialsgpg'\n \
 ${normal}and come back visit this script"
 sleep 2
 exit
 else	
-value=$(zenity --username --password)
+value=$(zenity --username --password --timeout=12)
 case $? in
 	0)
 	u=$(echo $value | cut -d "|" -f 1)
 	p=$(echo $value | cut -d "|" -f 2)
 	if ([[ -z $u ]] || [[ -z $p ]]); then
-	echo "we don't deal with emptiness"; sleep 2; exit
+	echo "we don't deal with emptiness"; sleep 2;
+	zenity --warning --timeout=12 --text="one or both of the entry is empty" &
+	exit 
 	else
 	echo "username=$u&passwd=$p" | gpg -c > credentialsgpg
 	fi
 	;;
 	1)
 	echo "nothing done bye!" 
+	zenity --info --timeout=12 --text="nothing done bye!" &
 	sleep 1
 	exit
 	;;
@@ -35,20 +41,14 @@ case $? in
 	;;
 esac
 
-read -p "do you need to set up the IP address of the miner Y|N? " ans
-case $ans in
-	y|Y|yes)
-	source second.sh
-	;;
-	n|N|no)
-	echo "nothing done bye!" 
-	sleep 1
-	;;
-	*)
-	echo "something went wrong"
-	;;
-esac
-
+#launch second?
+if [[ ! -f .data ]]; then
+if $(zenity --question --text="No IP address recorded for miner\nDo you want to set up one?"); then
+source second.sh
+else
+zenity --info --timeout=12 --text="Up to you, but you'll need one at some point" &
+fi
+fi
 
 fi
 

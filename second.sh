@@ -7,37 +7,62 @@
 #Declaratons
 bold=$(tput bold)
 normal=$(tput sgr0)
+#Working directory
+wdir="/opt/avalauto"
+cd $wdir
 #main
 if [[ -f .data ]]; then
-echo -e "data file already exist \ndelete it with ${bold}'sudo rm -f .data' \n \
-${normal}and come back visit this script"
-sleep 2
-exit
+read -p "data file already exist. Do you want to delete it? Y|N?" ans
+case $ans in
+	y|Y|yes)
+	rm -f .data
+	echo "run this script again to regenerate data file"; sleep 2;
+	exit
+	;;
+	n|N|no)
+	echo "nothing done bye!"; sleep 2;
+	exit	
+	;;
+	*)
+	echo "something went wrong"; sleep 2;
+	exit	
+	;;
+esac
+
+#if (zenity --question --text="data file already exist \nDo you want to delete it?"); then
+#rm -f .data
+#exit
+#fi
 else	
 value=$(zenity --entry \
 --title="Enter IP of the Miner" \
 --text="IP Address" \
---entry-text "xxx.yyy.z.w"
+--entry-text="xxx.yyy.z.w"
 )
 
 case $? in
 	0)
 	if [[ ! $value =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-	echo "IP format incorrect"; sleep 1
+	zenity --warning --text="IP format incorrect!" &
 	else
-	echo "IP format seems correct"
+	if [[ $(echo "$(ping -c 2 -q $value | grep -c -E "(^| )0% packet loss")") -gt "0" ]]; then
+	zenity --info --timeout=12 --text="IP format is correct and ping successful" &
 	echo "$value" > .data
+	else
+	zenity --error --timeout=12 --text="ping on this IP was not successful" &
+	fi
 	fi
 	;;
 	1)
-	echo "nothing done bye!" 
+	zenity --info --timeout=12 --text="nothing done bye!" &
 	;;
 	*)
-	echo "something went wrong"
+	zenity --error --timeout=12 --text="something went wrong" &
 	;;
 esac
 
 fi
 sleep 1
 exit
+
 
