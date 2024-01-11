@@ -57,11 +57,10 @@ change directory
 
 ## Setup
 1. Activate argos in extension (new icon on your launch pad)(just need to been for first use)  
-2. within Terminal (Ctrl + Alt + T)  
-   `cd /opt/avalauto`  
+2. within the extension, run    
    `./first.sh`  
    (this is to store your credentials in an encrypted file, remember your new single use passphrase, you might need it sometimes)  
-3. still in terminal  
+3. still within the extension, run 
    `./second.sh`  
    (this is to give the ip address of the miner on your local network)   
 ## Run  
