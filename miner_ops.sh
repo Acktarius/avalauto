@@ -112,13 +112,10 @@ mode=$(echo "${poolbrut:((${i["m"]}+7)):1}")
 
 }
 
-
-
-
 case $1 in
     "S")
 getPools
-z=$(zenity --list --radiolist --title="Select the Pool you want to swap on top" --width=600 --height=200\
+z=$(zenity --list --radiolist --title="Select the Pool you want to swap on top" --timeout=25 --width=600 --height=200\
       --column "Select" --column "Pool#" --column "Pool" --column "Worker" \
       TRUE  "1" ${pool[1,0]} ${pool[1,1]} \
       FALSE "2" ${pool[2,0]} ${pool[2,1]} \
