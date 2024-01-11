@@ -73,14 +73,25 @@ curl -s -X GET --cookie-jar cookies.txt \
 	$1
 }
 
-
+#Login
 curlit () {
 local credentialsZ=$(echo "$(gpg -d credentialsgpg)")
 curlAnyPost $credentialsZ $url > /dev/null
 unset credentialsZ
 }
+#reboot
+curlReboot (){
+curlAnyPost 'reboot=1' $urlr > /dev/null
+sleep1
+curlAnyPost "" $urlrb > /dev/null
+}
+#logout
+#-H 'Content-Length: 0' ?
+curlOut() {
+curlAnyPost '' $urlq > /dev/null
+}
 
-#check
+#main
 
 #Login
 curlit
@@ -137,10 +148,12 @@ done
         ;;
         1)
         zenInfo "Nothing will be done" &
+        curlOut
         exit
         ;;
         *)
-        zenWarn "Something is wrong" &
+        zenInfo "Nothing has been done" &
+        curlOut
         exit
         ;;
     esac
@@ -151,31 +164,32 @@ dataPool=$(echo "pool1=${pool[1,0]}&worker1=${pool[1,1]}&passwd1=${pool[1,2]}&po
 echo $mode
 if [[ "$mode" -ne "0" ]] && [[ "$mode" -ne "1" ]]; then
 zenWarn "Something is wrong" &
+curlOut
 exit
 else
     if (zenQues "You are in ${modeArr[$mode]} mode.\nDo you want to flip to ${modeArr[$(($mode -1))]} mode"); then
 dataToPost=$(echo ${dataPool}$(flipMode $mode))
 curlAnyPost "$dataToPost" $url4 > /dev/null
-    zenInfo "${modeArr[$(($mode -1))]} is saved\nand will be applied after reboot"
+    if $(zenQues "${modeArr[$(($mode -1))]} is saved\nand will be applied after reboot.\nConfirm reboot now?"); then
+    curlReboot
+    fi
     fi
 fi
     ;;
     "R")
 if $(zenQues "Confirm reboot ?\nThat will implement the changed saved in pool or mode"); then
-curlAnyPost 'reboot=1' $urlr > /dev/null
-sleep1
-curlAnyPost "" $urlrb > /dev/null
+curlReboot
 fi
     ;;
     *)
     zenWarn "Something is wrong" &
+    curlOut
     exit
     ;;
 esac    
 
 #logout
-$(curlAnyGet $urlq) 2> /dev/null
-
+curlOut
 
 unset i mode pool modeArr
 
